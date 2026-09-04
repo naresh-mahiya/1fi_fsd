@@ -6,3 +6,9 @@
 - Added the Prisma models and seed data for three phones.
 - Kept prices as whole rupee values to avoid float issues.
 - Fund names are marked as demo data, not real partnerships.
+
+## Phase 2
+
+- Added list, product detail and health APIs.
+- Kept the API response shape small and consistent.
+- Added tests for normal responses, bad slugs and database errors.

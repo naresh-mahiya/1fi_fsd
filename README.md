@@ -53,4 +53,55 @@ npm run typecheck
 npm test
 ```
 
-API documentation and deployment steps will be added as the remaining phases are completed.
+## API endpoints
+
+All successful responses put their result in `data`. Errors use an `error` object with a stable code and readable message.
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/api/health` | Check API and database availability |
+| `GET` | `/api/products` | List products with their default variant |
+| `GET` | `/api/products/:slug` | Get every variant and EMI plan for one product |
+
+Example product detail response (shortened):
+
+```json
+{
+  "data": {
+    "id": "cm...",
+    "slug": "iphone-17-pro",
+    "brand": "Apple",
+    "name": "iPhone 17 Pro",
+    "description": "A compact Pro iPhone...",
+    "variants": [
+      {
+        "id": "cm...",
+        "color": "Silver",
+        "colorHex": "#d8d9d4",
+        "storage": "256 GB",
+        "ram": null,
+        "mrp": 134900,
+        "price": 129900,
+        "imageUrl": "/products/iphone-17-pro-silver.jpg",
+        "emiPlans": [
+          {
+            "id": "cm...",
+            "tenureMonths": 6,
+            "monthlyPayment": 21650,
+            "interestRate": 0,
+            "cashbackAmount": 1500,
+            "fundPartner": {
+              "id": "cm...",
+              "name": "Demo Balanced Fund"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Unknown products return `404`, invalid slugs return `400`, and unexpected failures return `500` without database details.
+
+Deployment steps will be added in the final phase.
