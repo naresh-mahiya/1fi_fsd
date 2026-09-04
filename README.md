@@ -2,6 +2,8 @@
 
 A small full-stack assignment project for comparing smartphone variants and EMI plans. Product, pricing, image and plan information is served from PostgreSQL rather than being embedded in the React app.
 
+**Live demo:** [https://1fifsd.vercel.app](https://1fifsd.vercel.app)
+
 ## Tech stack
 
 - React, TypeScript, Vite and Tailwind CSS
@@ -125,6 +127,8 @@ Unknown products return `404`, invalid slugs return `400`, and unexpected failur
 ## Deploying to Vercel
 
 The repository is configured as one Vercel project: Vite builds the frontend into `client/dist`, while `api/index.ts` exposes the Express app as a Node.js Function. Vercel rewrites all `/api/*` traffic to that Express entry point and keeps product/checkout URLs reload-safe.
+
+The browser calls the API through the same Vercel origin using `/api`, so a separate frontend URL variable and production CORS allowlist are not needed.
 
 1. Push the repository to GitHub and import it into Vercel without changing the root directory.
 2. Add a Neon PostgreSQL database from the Vercel Marketplace. Set its pooled connection string as `DATABASE_URL` and its direct connection string as `MIGRATION_DATABASE_URL`.

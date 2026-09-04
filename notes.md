@@ -25,3 +25,5 @@
 - Checked the full flow at desktop and mobile widths.
 - Added deployment steps and a short recording outline to the README.
 - Runtime queries use the pooled Neon URL; migrations use the direct URL.
+- Used a separate `flexibuy` schema because the Neon database already had unrelated tables.
+- Deployed the site and API together at https://1fifsd.vercel.app.
