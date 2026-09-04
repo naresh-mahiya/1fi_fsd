@@ -18,3 +18,9 @@
 - Built the catalog, product and confirmation pages.
 - Variant links keep the selected option after a refresh.
 - Added mobile layouts, keyboard states and frontend tests.
+
+## Phase 4
+
+- Added the Vercel function and SPA route setup.
+- Checked the full flow at desktop and mobile widths.
+- Added deployment steps and a short recording outline to the README.

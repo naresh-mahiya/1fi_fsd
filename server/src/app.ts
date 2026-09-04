@@ -12,7 +12,7 @@ export function createApp(repository: ProductRepository = prismaProductRepositor
   app.disable("x-powered-by");
   app.use(
     cors({
-      origin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+      origin: process.env.NODE_ENV === "production" ? false : (process.env.CLIENT_ORIGIN ?? "http://localhost:5173"),
     }),
   );
   app.use(express.json({ limit: "20kb" }));

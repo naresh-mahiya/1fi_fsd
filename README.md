@@ -20,7 +20,7 @@ docker-compose.yml
 
 ## Local setup
 
-Requirements: Node.js 22, npm and PostgreSQL 16 (or Docker).
+Requirements: Node.js 24, npm and PostgreSQL 16 (or Docker).
 
 ```bash
 cp .env.example .env
@@ -117,9 +117,35 @@ Unknown products return `404`, invalid slugs return `400`, and unexpected failur
 
 ## Responsive and accessible UI
 
-- Mobile-first layouts with a sticky mobile action button
+- Mobile-first layouts with a large, touch-friendly action button
 - Keyboard-operable variant and plan controls with visible focus states
 - Loading, empty, not-found and API error states
 - Reduced-motion support and descriptive product image text
 
-Deployment steps will be added in the final phase.
+## Deploying to Vercel
+
+The repository is configured as one Vercel project: Vite builds the frontend into `client/dist`, while `api/index.ts` exposes the Express app as a Node.js Function. Vercel rewrites all `/api/*` traffic to that Express entry point and keeps product/checkout URLs reload-safe.
+
+1. Push the repository to GitHub and import it into Vercel without changing the root directory.
+2. Add a Neon PostgreSQL database from the Vercel Marketplace. Use its pooled connection string as `DATABASE_URL` for Production and Preview.
+3. Apply the committed migration and seed the database once from a trusted terminal:
+
+   ```bash
+   DATABASE_URL="your-neon-connection-string" npm run db:deploy
+   DATABASE_URL="your-neon-connection-string" npm run db:seed
+   ```
+
+4. Deploy or redeploy the project. The build and output settings are already stored in `vercel.json`.
+5. Check `/api/health`, `/api/products` and all three product pages on the deployment.
+
+Do not commit `.env` or paste database credentials into `vercel.json`. A separate Preview database is preferable if preview branches will run migrations.
+
+## Demo video outline
+
+The assignment video can be recorded in about three minutes:
+
+1. Show the catalog and open each unique product URL.
+2. Change a variant, compare interest/cashback values, select a plan and open the confirmation screen.
+3. Open `/api/products` and one product API response in the browser.
+4. Briefly show `schema.prisma`, the seed script and the PostgreSQL tables in the database dashboard.
+5. Finish on the deployed product page and mention the React, Express, Prisma and PostgreSQL stack.

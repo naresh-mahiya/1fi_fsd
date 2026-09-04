@@ -71,7 +71,7 @@ export function ProductPage() {
   if (!product || !selectedVariant) return null;
 
   return (
-    <main className="pb-28 md:pb-0" id="main-content">
+    <main id="main-content">
       <div className="mx-auto max-w-7xl px-5 py-5 md:px-8">
         <Link className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-ink/70 hover:text-blue" to="/">
           <ArrowLeft aria-hidden="true" size={17} /> Back to phones
@@ -134,10 +134,13 @@ export function ProductPage() {
                 {selectedVariant.emiPlans.map((plan) => (
                   <EmiPlanCard plan={plan} selected={plan.id === selectedPlanId} onSelect={() => setSelectedPlanId(plan.id)} key={plan.id} />
                 ))}
+                {selectedVariant.emiPlans.length === 0 && (
+                  <p className="border border-ink/20 p-4 text-sm text-ink/65">No EMI plans are available for this variant.</p>
+                )}
               </div>
             </fieldset>
 
-            <div className="mt-8 hidden md:block">
+            <div className="mt-8">
               <button className="button-primary w-full" type="button" disabled={!selectedPlan} onClick={proceed}>
                 Proceed with selected plan <ArrowRight aria-hidden="true" size={18} />
               </button>
@@ -151,12 +154,6 @@ export function ProductPage() {
         </div>
       </div>
 
-      <div className="sticky inset-x-0 bottom-0 z-20 border-t border-ink/20 bg-white p-3 md:hidden">
-        <button className="button-primary w-full" type="button" disabled={!selectedPlan} onClick={proceed}>
-          {selectedPlan ? `Continue · ${formatCurrency(selectedPlan.monthlyPayment)}/mo` : "Select a plan"}
-          <ArrowRight aria-hidden="true" size={18} />
-        </button>
-      </div>
     </main>
   );
 }

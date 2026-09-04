@@ -1,12 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatCurrency } from "../lib/format";
-import type { ProductSummary } from "../types";
+import type { EmiPlan, ProductSummary } from "../types";
 
 export function ProductCard({ product, index }: { product: ProductSummary; index: number }) {
   const variant = product.defaultVariant;
-  const startingPlan = variant.emiPlans.reduce((lowest, plan) =>
-    plan.monthlyPayment < lowest.monthlyPayment ? plan : lowest,
+  const startingPlan = variant.emiPlans.reduce<EmiPlan | null>(
+    (lowest, plan) => (!lowest || plan.monthlyPayment < lowest.monthlyPayment ? plan : lowest),
+    null,
   );
 
   return (
@@ -34,7 +35,11 @@ export function ProductCard({ product, index }: { product: ProductSummary; index
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-ink/55">From</p>
               <p className="mt-1 text-xl font-bold">
-                {formatCurrency(startingPlan.monthlyPayment)}<span className="text-sm font-normal text-ink/60">/mo</span>
+                {startingPlan ? (
+                  <>{formatCurrency(startingPlan.monthlyPayment)}<span className="text-sm font-normal text-ink/60">/mo</span></>
+                ) : (
+                  <span className="text-sm">Plans unavailable</span>
+                )}
               </p>
             </div>
             <ArrowUpRight className="text-blue transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />

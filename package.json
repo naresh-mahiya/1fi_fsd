@@ -14,12 +14,14 @@
     "test": "npm run test --workspace server && npm run test --workspace client",
     "db:generate": "npm run db:generate --workspace server",
     "db:migrate": "npm run db:migrate --workspace server",
-    "db:seed": "npm run db:seed --workspace server"
+    "db:deploy": "npm run db:deploy --workspace server",
+    "db:seed": "npm run db:seed --workspace server",
+    "vercel-build": "npm run db:generate && npm run build --workspace client"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
   },
   "engines": {
-    "node": ">=22 <23"
+    "node": "24.x"
   }
 }
