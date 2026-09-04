@@ -127,12 +127,17 @@ Unknown products return `404`, invalid slugs return `400`, and unexpected failur
 The repository is configured as one Vercel project: Vite builds the frontend into `client/dist`, while `api/index.ts` exposes the Express app as a Node.js Function. Vercel rewrites all `/api/*` traffic to that Express entry point and keeps product/checkout URLs reload-safe.
 
 1. Push the repository to GitHub and import it into Vercel without changing the root directory.
-2. Add a Neon PostgreSQL database from the Vercel Marketplace. Use its pooled connection string as `DATABASE_URL` for Production and Preview.
+2. Add a Neon PostgreSQL database from the Vercel Marketplace. Set its pooled connection string as `DATABASE_URL` and its direct connection string as `MIGRATION_DATABASE_URL`.
 3. Apply the committed migration and seed the database once from a trusted terminal:
 
    ```bash
-   DATABASE_URL="your-neon-connection-string" npm run db:deploy
-   DATABASE_URL="your-neon-connection-string" npm run db:seed
+   DATABASE_URL="your-pooled-neon-url" \
+   MIGRATION_DATABASE_URL="your-direct-neon-url" \
+   npm run db:deploy
+
+   DATABASE_URL="your-pooled-neon-url" \
+   MIGRATION_DATABASE_URL="your-direct-neon-url" \
+   npm run db:seed
    ```
 
 4. Deploy or redeploy the project. The build and output settings are already stored in `vercel.json`.

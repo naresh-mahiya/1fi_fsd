@@ -24,3 +24,4 @@
 - Added the Vercel function and SPA route setup.
 - Checked the full flow at desktop and mobile widths.
 - Added deployment steps and a short recording outline to the README.
+- Runtime queries use the pooled Neon URL; migrations use the direct URL.
