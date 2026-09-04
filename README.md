@@ -34,6 +34,17 @@ npm run dev
 
 The frontend runs on `http://localhost:5173` and proxies `/api` requests to the API on `http://localhost:3000`.
 
+## App routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Product catalog loaded from the API |
+| `/products/:slug` | Product, variant and EMI plan selection |
+| `/products/:slug?variant=:variantId` | Shareable selected variant |
+| `/checkout?product=:slug&variant=:id&plan=:id` | Reload-safe confirmation summary |
+
+The confirmation screen is intentionally the end of this assignment flow. It does not create an order or collect personal/payment information.
+
 ## Database schema
 
 - `Product` stores the shared brand, name, description and unique URL slug.
@@ -103,5 +114,12 @@ Example product detail response (shortened):
 ```
 
 Unknown products return `404`, invalid slugs return `400`, and unexpected failures return `500` without database details.
+
+## Responsive and accessible UI
+
+- Mobile-first layouts with a sticky mobile action button
+- Keyboard-operable variant and plan controls with visible focus states
+- Loading, empty, not-found and API error states
+- Reduced-motion support and descriptive product image text
 
 Deployment steps will be added in the final phase.

@@ -12,3 +12,9 @@
 - Added list, product detail and health APIs.
 - Kept the API response shape small and consistent.
 - Added tests for normal responses, bad slugs and database errors.
+
+## Phase 3
+
+- Built the catalog, product and confirmation pages.
+- Variant links keep the selected option after a refresh.
+- Added mobile layouts, keyboard states and frontend tests.
